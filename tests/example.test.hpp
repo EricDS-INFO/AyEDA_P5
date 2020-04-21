@@ -7,7 +7,7 @@ SCENARIO("Testing a vector", "[vector]")
     {
        std::vector<int> my_vector;
        REQUIRE(my_vector.empty());
-       
+
        WHEN("One element is pushed")
        {
            my_vector.push_back(1);
@@ -26,4 +26,5 @@ SCENARIO("Testing a vector", "[vector]")
            }
        } 
     }
+
 }
