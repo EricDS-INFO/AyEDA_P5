@@ -1,0 +1,4 @@
+*runner
+*.o
+.vscode
+log.txt
