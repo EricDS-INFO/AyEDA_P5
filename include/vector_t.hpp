@@ -27,12 +27,11 @@ template <class TData>
 class Vector_T 
 {
     private:
-        int     sz_;
+        int     sz_, ini_, end_;
         TData*  vp_;
     
     public:   
-        Vector_T(void);
-        Vector_T(int sz);
+        Vector_T(int sz = 0, int ini = 0);
         Vector_T(const Vector_T<TData>& other_v);
 
         ~Vector_T(void);
@@ -50,6 +49,8 @@ class Vector_T
 
         // STATUS METHODS
         int size(void) const;
+        int start(void) const { return ini_;}
+        int end(void) const { return end_;}
         bool empty(void) const { return size() == 0; }
 
         // OPERATORS    
@@ -68,17 +69,18 @@ class Vector_T
 
 // PUBLIC METHODS
 
-template<class TData>
-Vector_T<TData>::Vector_T(void):
-vp_(NULL),
-sz_(0){}
 
 template<class TData>
-Vector_T<TData>::Vector_T(int sz):
+Vector_T<TData>::Vector_T(int sz, int ini):
 vp_(NULL),
-sz_(sz)
+sz_(sz),
+ini_(ini),
+end_(sz - (ini < 0 ? -ini : ini ))
 { 
-  create(); 
+    if(sz > 0)
+        create();
+    else
+        vp_ = 0; 
 }
 
 template<class TData>
