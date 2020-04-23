@@ -37,8 +37,7 @@ class Vector_T
 
         ~Vector_T(void);
 
-        int size(void) const;
-
+        //FUNCTIONS
         void resize(int nsz);
 
         TData& at(int pos);
@@ -49,12 +48,16 @@ class Vector_T
 
         std::ostream& write(std::ostream& os) const;
 
+        // STATUS METHODS
+        int size(void) const;
+        bool empty(void) const { return size() == 0; }
+
+        // OPERATORS    
         TData& operator [](int pos);
         TData  operator [](int pos) const;
 
         template<class U>
         friend std::ostream& operator <<(std::ostream& os, Vector_T<U>&);
-    
     
     private:
         void create(void);
@@ -160,11 +163,11 @@ template<class TData>
 std::ostream& Vector_T<TData>::write(std::ostream& os) const
 {
     os << "SIZE: " << sz_ << std::endl;
-    os << "[";
+    os << "[ | ";
     for (int i = 0; i < sz_; i++ ) {
-        os << " " << vp_[i];
+        os << vp_[i] << " | "  ;
     }
-    os << " ]" << std::endl;
+    os << "]" << std::endl;
     
     return os;
 }
