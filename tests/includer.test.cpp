@@ -2,4 +2,4 @@
 #include "../include/catch/catch.h"
 #include<iostream>
 
-#include "quick_sort.test.hpp"
+#include "heap_sort.test.hpp"

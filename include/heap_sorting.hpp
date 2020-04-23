@@ -3,7 +3,7 @@
 
 
 template <class KEY>
-void quick_sort(Vector_T<KEY>& keys, int size)
+void heap_sort(Vector_T<KEY>& keys, int size)
 {
 
 }

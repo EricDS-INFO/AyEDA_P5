@@ -5,7 +5,7 @@
 #include "../include/vector_t.hpp"
 #include "../include/dni.hpp"
 #include "../src/dni.cpp"
-#include "../include/quick_sorting.hpp"
+#include "../include/heap_sorting.hpp"
 
 SCENARIO( "Testing the Insertion Sorting method", "[LOGARITHMIC]" )
 {
@@ -30,7 +30,7 @@ SCENARIO( "Testing the Insertion Sorting method", "[LOGARITHMIC]" )
             }
             AND_THEN("They can be sorted")
             {
-                quick_sort(key_array, key_array.size());
+                heap_sort(key_array, key_array.size());
                 std::cout << "AFTER: " << key_array << "\n";
             
                 CHECK(key_array[0] <= key_array[1]); 
