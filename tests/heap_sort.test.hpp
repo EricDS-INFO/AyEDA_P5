@@ -11,7 +11,7 @@ SCENARIO( "Testing the Insertion Sorting method", "[LOGARITHMIC]" )
 {
     GIVEN( "A DNI type vector" )
     {
-        Vector_T<dni> key_array;
+        Vector_T<dni> key_array(0,1);
         REQUIRE(key_array.empty());
         WHEN( "Elements inserted" )
         {
@@ -33,11 +33,11 @@ SCENARIO( "Testing the Insertion Sorting method", "[LOGARITHMIC]" )
                 heap_sort(key_array, key_array.size());
                 std::cout << "AFTER: " << key_array << "\n";
             
-                CHECK(key_array[0] <= key_array[1]); 
-                
                 CHECK(key_array[1] <= key_array[2]); 
                 
-                CHECK(key_array[0] <= key_array[2]);                
+                CHECK(key_array[2] <= key_array[3]); 
+                
+                CHECK(key_array[1] <= key_array[3]);                
 
             }
         }
