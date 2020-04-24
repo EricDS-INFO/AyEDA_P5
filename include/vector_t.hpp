@@ -37,18 +37,16 @@ class Vector_T
 
         ~Vector_T(void);
 
-        int size(void) const { return sz_ };
+        int size(void) const { return sz_; };
         int start(void) const { return start_; }
         int end(void) const{ return end_; }
         bool empty(void) const { return size() == 0; }
 
-        void front_resize(int nsz);
-        void back_resize(int nsz);
+        void back_resize(int& nsz);
 
         TData& at(int pos);
         TData&  at(int pos) const;
 
-        //void push_front( TData value);
         void push_back( TData value);
 
         std::ostream& write(std::ostream& os) const;
@@ -62,6 +60,7 @@ class Vector_T
     
     private:
         void create(void);
+
         void copy(Vector_T v);
         void destroy(void);
 };
@@ -112,63 +111,38 @@ TData& Vector_T<TData>::at(int pos) const
 template<class TData>
 TData& Vector_T<TData>::at(int pos) 
 {
-    assert(pos >= start_ && pos <= end_);
+    assert( pos >= start_);
+    assert( pos <= end_);
     return vp_[ sz_ - end_ + pos ];
 }
 
 
 
+
 template<class TData>
-void Vector_T<TData>::front_resize(int nsz)
+void Vector_T<TData>::back_resize(int& nsz)
 {
     int aux_s = start_;
     int aux_e = end_;
     destroy();
+
     sz_ = nsz;
     create();
 
     start_ = aux_s;
     end_ = aux_e + 1;
 }
-
-template<class TData>
-void Vector_T<TData>::back_resize(int nsz)
-{
-    int aux_s = start_;
-    int aux_e = end_;
-    destroy();
-    sz_ = nsz;
-    create();
-
-    start_ = aux_s;
-    end_ = aux_e + 1;
-}
-
-
-//template<class TData>
-//void Vector_T<TData>::push_front( TData value)
-//{
-//    Vector_T aux_v(sz_);
-//    for (int i = 0; i < sz_; i++) {
-//        aux_v[i] = vp_[i];
-//    }
-//    resize(sz_ + 1);
-//    vp_[0] = value;
-//    for (int i = 1; i < sz_; i++) {
-//        vp_[i] = aux_v[i - 1];
-//    }
-//}
 
 template<class TData>
 void Vector_T<TData>::push_back( TData value)
 {    
     Vector_T<TData> aux_v(sz_, start_);
-
     for (int i = start_; i <= end_; i++) 
     {
         aux_v[i] = at(i);
     }
-    back_resize(sz_ + 1);
+    int newsize = sz_ + 1; 
+    back_resize(newsize);
     at(end_) = value;
 
     for (int i = start_; i < end_ ; i++) 
@@ -230,6 +204,7 @@ void Vector_T<TData>::create(void)
         vp_ = 0;
 }
 
+
 template<class TData>
 void Vector_T<TData>::copy(Vector_T<TData> v)
 {
@@ -242,7 +217,6 @@ void Vector_T<TData>::destroy(void)
 {
     if( vp_ != NULL ) 
         delete[] vp_;
-    vp_ = 0;
-    sz_ = 0;
+    vp_ = NULL;
 }
 
