@@ -30,7 +30,7 @@ SCENARIO( "Testing the Insertion Sorting method", "[LOGARITHMIC]" )
             }
             AND_THEN("They can be sorted")
             {
-                quick_sort(key_array, key_array.size());
+                quick_sort(key_array, key_array.start(), key_array.end());
                 std::cout << "AFTER: " << key_array << "\n";
             
                 CHECK(key_array[0] <= key_array[1]); 
