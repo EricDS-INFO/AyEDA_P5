@@ -27,38 +27,38 @@ template <class TData>
 class Vector_T 
 {
     private:
-        int     sz_, ini_, end_;
+        int     sz_, start_, end_;
         TData*  vp_;
     
     public:   
-        Vector_T(int sz = 0, int ini = 0);
+        Vector_T(void);
+        Vector_T(int sz, int start = 0);
         Vector_T(const Vector_T<TData>& other_v);
 
         ~Vector_T(void);
 
-        //FUNCTIONS
-        void resize(int nsz);
+        int size(void) const { return sz_ };
+        int start(void) const { return start_; }
+        int end(void) const{ return end_; }
+        bool empty(void) const { return size() == 0; }
+
+        void front_resize(int nsz);
+        void back_resize(int nsz);
 
         TData& at(int pos);
-        TData  value(int pos) const;
+        TData&  at(int pos) const;
 
-        void push_front( TData value);
+        //void push_front( TData value);
         void push_back( TData value);
 
         std::ostream& write(std::ostream& os) const;
 
-        // STATUS METHODS
-        int size(void) const;
-        int start(void) const { return ini_;}
-        int end(void) const { return end_;}
-        bool empty(void) const { return size() == 0; }
-
-        // OPERATORS    
         TData& operator [](int pos);
         TData  operator [](int pos) const;
 
         template<class U>
         friend std::ostream& operator <<(std::ostream& os, Vector_T<U>&);
+    
     
     private:
         void create(void);
@@ -69,18 +69,21 @@ class Vector_T
 
 // PUBLIC METHODS
 
+template<class TData>
+Vector_T<TData>::Vector_T(void):
+vp_(0),
+sz_(0),
+start_(0),
+end_(0){}
 
 template<class TData>
-Vector_T<TData>::Vector_T(int sz, int ini):
-vp_(NULL),
+Vector_T<TData>::Vector_T(int sz, int start):
+vp_(0),
 sz_(sz),
-ini_(ini),
-end_(sz - (ini < 0 ? -ini : ini ))
+start_(start),
+end_(sz - 1 + start)
 { 
-    if(sz > 0)
-        create();
-    else
-        vp_ = 0; 
+  create(); 
 }
 
 template<class TData>
@@ -98,65 +101,79 @@ Vector_T<TData>::~Vector_T(void){
   destroy(); 
 }
 
-template<class TData>
-int Vector_T<TData>::size(void) const
-{
-    return sz_;
-}
-
 
 template<class TData>
-void Vector_T<TData>::resize(int nsz)
+TData& Vector_T<TData>::at(int pos) const
 {
-    destroy();
-    sz_ = nsz;
-    create();
-}
-
-template<class TData>
-TData Vector_T<TData>::value(int pos) const
-{
-    assert(pos >= 0 && pos < sz_);
-    return vp_[pos];
+    assert(pos >= start_ && pos <= end_);
+    return vp_[ sz_ - end_ + pos ];
 }
 
 template<class TData>
 TData& Vector_T<TData>::at(int pos) 
 {
-    assert(pos >= 0 && pos < sz_);
-    return vp_[pos];
+    assert(pos >= start_ && pos <= end_);
+    return vp_[ sz_ - end_ + pos ];
+}
+
+
+
+template<class TData>
+void Vector_T<TData>::front_resize(int nsz)
+{
+    int aux_s = start_;
+    int aux_e = end_;
+    destroy();
+    sz_ = nsz;
+    create();
+
+    start_ = aux_s;
+    end_ = aux_e + 1;
 }
 
 template<class TData>
-void Vector_T<TData>::push_front( TData value)
+void Vector_T<TData>::back_resize(int nsz)
 {
-    Vector_T aux_v(sz_);
+    int aux_s = start_;
+    int aux_e = end_;
+    destroy();
+    sz_ = nsz;
+    create();
 
-    for (int i = 0; i < sz_; i++) {
-        aux_v[i] = vp_[i];
-    }
-
-    resize(sz_ + 1);
-    vp_[0] = value;
-
-    for (int i = 1; i < sz_; i++) {
-        vp_[i] = aux_v[i - 1];
-    }
+    start_ = aux_s;
+    end_ = aux_e + 1;
 }
+
+
+//template<class TData>
+//void Vector_T<TData>::push_front( TData value)
+//{
+//    Vector_T aux_v(sz_);
+//    for (int i = 0; i < sz_; i++) {
+//        aux_v[i] = vp_[i];
+//    }
+//    resize(sz_ + 1);
+//    vp_[0] = value;
+//    for (int i = 1; i < sz_; i++) {
+//        vp_[i] = aux_v[i - 1];
+//    }
+//}
 
 template<class TData>
 void Vector_T<TData>::push_back( TData value)
 {    
-    Vector_T aux_v(sz_);
+    Vector_T<TData> aux_v(sz_, start_);
 
-    for (int i = 0; i < sz_; i++) {
-        aux_v[i] = vp_[i];
+    for (int i = start_; i <= end_; i++) 
+    {
+        aux_v[i] = at(i);
     }
-    resize(sz_ + 1);
-    vp_[sz_ - 1] = value;
+    back_resize(sz_ + 1);
+    at(end_) = value;
 
-    for (int i = 0; i < sz_ - 1; i++) {
-        vp_[i] = aux_v[i];
+    for (int i = start_; i < end_ ; i++) 
+    {
+        at(i) = aux_v[i];
     }
 }
 
@@ -165,11 +182,12 @@ template<class TData>
 std::ostream& Vector_T<TData>::write(std::ostream& os) const
 {
     os << "SIZE: " << sz_ << std::endl;
-    os << "[ | ";
-    for (int i = 0; i < sz_; i++ ) {
-        os << vp_[i] << " | "  ;
+    os << "| ";
+    for (int i = start_; i <= end_; i++ ) 
+    {
+        os << " ["<< i << "] "  << at(i) << " |";
     }
-    os << "]" << std::endl;
+    os << "" << std::endl;
     
     return os;
 }
@@ -185,7 +203,7 @@ TData& Vector_T<TData>::operator [](int pos)
 template<class TData>
 TData  Vector_T<TData>::operator [](int pos) const
 {
-    return value(pos);
+    return at(pos);
 }
     
 
@@ -201,7 +219,15 @@ std::ostream& operator <<(std::ostream& os, Vector_T<TData>& v)
 template<class TData>
 void Vector_T<TData>::create(void)
 {
-    vp_ = new TData[sz_];
+    if (sz_ > 0){
+        vp_ = new TData[sz_];
+        for (int i = 0; i < sz_; i++ ) 
+        {
+            vp_[i] = 0;
+        }
+    }
+    else if (sz_ == 0)
+        vp_ = 0;
 }
 
 template<class TData>
@@ -214,9 +240,9 @@ void Vector_T<TData>::copy(Vector_T<TData> v)
 template<class TData>
 void Vector_T<TData>::destroy(void)
 {
-    if( vp_ != NULL ) {
+    if( vp_ != NULL ) 
         delete[] vp_;
-        vp_ = NULL;
-    } 
+    vp_ = 0;
+    sz_ = 0;
 }
 
