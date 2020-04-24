@@ -31,8 +31,7 @@ class Vector_T
         TData*  vp_;
     
     public:   
-        Vector_T(void);
-        Vector_T(int sz, int start = 0);
+        Vector_T(int sz = 0, int start = 0);
         Vector_T(const Vector_T<TData>& other_v);
 
         ~Vector_T(void);
@@ -68,20 +67,15 @@ class Vector_T
 
 // PUBLIC METHODS
 
-template<class TData>
-Vector_T<TData>::Vector_T(void):
-vp_(0),
-sz_(0),
-start_(0),
-end_(0){}
 
 template<class TData>
 Vector_T<TData>::Vector_T(int sz, int start):
 vp_(0),
 sz_(sz),
-start_(start),
-end_(sz - 1 + start)
+start_(start)
 { 
+    
+  end_ = (sz_ == 0) ? 0 : (sz - 1 + start);
   create(); 
 }
 
@@ -105,7 +99,7 @@ template<class TData>
 TData& Vector_T<TData>::at(int pos) const
 {
     assert(pos >= start_ && pos <= end_);
-    return vp_[ sz_ - end_ + pos ];
+    return vp_[ sz_ - end_ + pos  - 1];
 }
 
 template<class TData>
@@ -113,7 +107,7 @@ TData& Vector_T<TData>::at(int pos)
 {
     assert( pos >= start_);
     assert( pos <= end_);
-    return vp_[ sz_ - end_ + pos ];
+    return vp_[ sz_ - end_ + pos - 1];
 }
 
 
@@ -130,40 +124,77 @@ void Vector_T<TData>::back_resize(int& nsz)
     create();
 
     start_ = aux_s;
+    if (sz_ == 1)
+    {
+        end_ = start_;
+    }
+    else
+    {
     end_ = aux_e + 1;
+    }
 }
 
 template<class TData>
 void Vector_T<TData>::push_back( TData value)
 {    
     Vector_T<TData> aux_v(sz_, start_);
-    for (int i = start_; i <= end_; i++) 
+    for (int i = 0; i < sz_; i++) 
     {
-        aux_v[i] = at(i);
+        aux_v.vp_[i] = vp_[i];
+        
     }
     int newsize = sz_ + 1; 
     back_resize(newsize);
-    at(end_) = value;
-
-    for (int i = start_; i < end_ ; i++) 
+    
+    vp_[sz_ - 1] = value;
+    for (int i = 0 ; i < sz_ -1; i++) 
     {
-        at(i) = aux_v[i];
+        vp_[i] = aux_v.vp_[i];
     }
+    
+    
 }
 
 
 template<class TData>
 std::ostream& Vector_T<TData>::write(std::ostream& os) const
 {
+    if (empty())
+    {
+        return os << "| EMPTY | \n";
+    }
     os << "SIZE: " << sz_ << std::endl;
     os << "| ";
-    for (int i = start_; i <= end_; i++ ) 
+    if (sz_ > 2)
     {
-        os << " ["<< i << "] "  << at(i) << " |";
-    }
-    os << "" << std::endl;
+        for (int i = start_; i <= end_; i++ ) 
+        {
+            os << " ["<< i << "] "  << at(i) << " |";
+        }
+
+        os << std::endl;
+
+        return os;
+    } 
+    else if( sz_ == 1 )
+    {
+        os << " ["<< end_ << "] "  << at(end_) << " |";
     
-    return os;
+        os << std::endl;
+
+        return os;
+    } 
+    else if (sz_ == 2)
+    {
+        
+        os << " ["<< start_ << "] "  << at(start_) << " |";
+
+        os << " ["<< end_ << "] "  << at(end_) << " |";
+        os << std::endl;
+
+        return os;
+    }
+    
 }
 
 // OPERATORS
@@ -195,10 +226,8 @@ void Vector_T<TData>::create(void)
 {
     if (sz_ > 0){
         vp_ = new TData[sz_];
-        for (int i = 0; i < sz_; i++ ) 
-        {
-            vp_[i] = 0;
-        }
+        for (int i = 0; i < sz_; i++)
+            vp_[i] = 0;        
     }
     else if (sz_ == 0)
         vp_ = 0;
