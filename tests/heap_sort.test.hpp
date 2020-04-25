@@ -7,11 +7,11 @@
 #include "../src/dni.cpp"
 #include "../include/heap_sorting.hpp"
 
-SCENARIO( "Testing the Quick Sorting method", "[CUADRATIC]" )
+SCENARIO( "Testing the Heap Sorting method", "[CUADRATIC]" )
 {
     GIVEN( "A DNI type vector" )
     {
-        Vector_T<dni> key_array;
+        Vector_T<dni> key_array(0,1);
         REQUIRE(key_array.empty());
         WHEN( "Elements inserted" )
         {
@@ -30,7 +30,7 @@ SCENARIO( "Testing the Quick Sorting method", "[CUADRATIC]" )
             }
             AND_THEN("They can be sorted")
             {
-                quick_sort(key_array, key_array.start(), key_array.end());
+                heap_sort(key_array, key_array.size());
                 std::cout << "AFTER: " << key_array << "\n";
             
                 CHECK(key_array[1] <= key_array[2]); 

@@ -6,4 +6,5 @@
 #include "insertion.test.hpp"
 #include "shell_sort.test.hpp"
 #include "quick_sort.test.hpp"
+#include "heap_sort.test.hpp"
 //#include "vector.test.hpp"
