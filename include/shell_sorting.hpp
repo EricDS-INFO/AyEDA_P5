@@ -11,23 +11,26 @@ void shell_sort(Vector_T<KEY>& keys, int size)
 
     delta = size;
 
-    while (delta > 1)
+    while (delta > keys.start() + 1)
     {
         delta = delta / 2;
         delta_sort(delta, keys, size);
+        
     }
 }
 
 template <class KEY>
 void delta_sort(int delta, Vector_T<KEY>& keys, int size)
 {
-    for (int i = delta; i < size; i++)
+    for (int i = delta; i <= keys.end(); i++)
     {
         KEY temp = keys[i];
         int j = i;
-        while ((j >= delta) && (temp < keys[j - delta]))
+
+        while (((j - keys.start() ) >= delta) && (temp < keys[j - delta ]))
         {
-            keys[j] = keys[j - delta];
+
+            keys[j] = keys[j - delta ];
             j = j - delta;
         }
         keys[j] = temp;
