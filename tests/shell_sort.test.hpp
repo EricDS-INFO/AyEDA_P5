@@ -7,7 +7,7 @@
 #include "../src/dni.cpp"
 #include "../include/shell_sorting.hpp"
 
-SCENARIO( "Testing the Insertion Sorting method", "[LOGARITHMIC]" )
+SCENARIO( "Testing the Insertion Sorting method", "[OTHER]" )
 {
     GIVEN( "A DNI type vector" )
     {
