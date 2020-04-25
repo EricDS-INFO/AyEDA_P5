@@ -7,7 +7,7 @@
 #include "../src/dni.cpp"
 #include "../include/bubble_sorting.hpp"
 
-SCENARIO( "Testing the Insertion Sorting method", "[CUADRATIC]" )
+SCENARIO( "Testing the Bubble Sorting method", "[CUADRATIC]" )
 {
     GIVEN( "A DNI type vector" )
     {

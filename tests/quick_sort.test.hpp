@@ -7,7 +7,7 @@
 #include "../src/dni.cpp"
 #include "../include/quick_sorting.hpp"
 
-SCENARIO( "Testing the Insertion Sorting method", "[CUADRATIC]" )
+SCENARIO( "Testing the Quick Sorting method", "[CUADRATIC]" )
 {
     GIVEN( "A DNI type vector" )
     {

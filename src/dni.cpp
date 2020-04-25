@@ -1,3 +1,4 @@
+#pragma once
 #include "../include/dni.hpp"
 #include "../include/counter.hpp"
 
