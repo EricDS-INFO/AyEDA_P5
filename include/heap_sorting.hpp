@@ -34,7 +34,6 @@ void heap_sort(Vector_T<KEY>& keys, int size)
     for(int i = size ; i > 1; i--)
     {
         std::swap(keys[1], keys[i]);
-        std::cout << keys[1] <<"\n";
         heapify(keys, i-1, 1);
     } 
 }

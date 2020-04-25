@@ -5,7 +5,7 @@
 #include "../include/vector_t.hpp"
 #include "../include/dni.hpp"
 #include "../src/dni.cpp"
-#include "../include/heap_sorting.hpp"
+#include "../include/quick_sorting.hpp"
 
 SCENARIO( "Testing the Quick Sorting method", "[CUADRATIC]" )
 {
@@ -33,11 +33,11 @@ SCENARIO( "Testing the Quick Sorting method", "[CUADRATIC]" )
                 quick_sort(key_array, key_array.start(), key_array.end());
                 std::cout << "AFTER: " << key_array << "\n";
             
+                CHECK(key_array[0] <= key_array[1]); 
+                
                 CHECK(key_array[1] <= key_array[2]); 
                 
-                CHECK(key_array[2] <= key_array[3]); 
-                
-                CHECK(key_array[1] <= key_array[3]);                
+                CHECK(key_array[0] <= key_array[2]);                
 
             }
         }
