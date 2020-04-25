@@ -18,7 +18,7 @@ int main(void)
     initialize(keys_);
 
     std::cout << keys_ << std::endl;
-    bubble_sort(keys_, keys_.size());
+    insertion_sort(keys_, keys_.size());
     std::cout << keys_ << std::endl;
     return 0;
 }
@@ -41,7 +41,6 @@ void initialize(Vector_T<dni>& keys)
     for(int i = keys.start(); i <= keys.end(); i++)
     {
         dni aux;
-        std::cout << aux << std::endl;
         keys[i] = aux; 
     }
 }
