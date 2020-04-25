@@ -50,12 +50,13 @@ class Vector_T
 
         std::ostream& write(std::ostream& os) const;
 
+
+        // OPERATORS    
         TData& operator [](int pos);
         TData  operator [](int pos) const;
 
         template<class U>
         friend std::ostream& operator <<(std::ostream& os, Vector_T<U>&);
-    
     
     private:
         void create(void);

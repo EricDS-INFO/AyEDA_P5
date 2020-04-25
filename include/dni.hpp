@@ -30,6 +30,7 @@ class dni
         inline int length() const { return length_; }
 
         friend std::ostream& operator<< (std::ostream& os, dni& dni_t);
+        
         bool operator== (dni& r_value);
         bool operator!= (dni& r_value);
         bool operator> (dni& r_value);
