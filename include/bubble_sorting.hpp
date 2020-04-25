@@ -7,7 +7,7 @@ void bubble_sort(Vector_T<KEY>& keys, int size)
     do
     {    
         modified = false;
-        for (int j = 0; j < size - 1; ++j)
+        for (int j = keys.start(); j <= keys.end() - 1; ++j)
         {
             if (keys[j] > keys[j + 1])
             {
