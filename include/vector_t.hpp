@@ -164,8 +164,7 @@ std::ostream& Vector_T<TData>::write(std::ostream& os) const
     {
         return os << "| EMPTY | \n";
     }
-    os << "SIZE: " << sz_ << std::endl;
-    os << "| ";
+    os << "|";
     if (sz_ > 2)
     {
         for (int i = start_; i <= end_; i++ ) 

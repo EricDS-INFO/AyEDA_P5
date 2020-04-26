@@ -12,26 +12,43 @@ void simulate(int method, Vector_T<dni>& keys);
 void stats(Vector_T<dni>& keys);
 void initialize(Vector_T<dni>& keys);
 
-int main(void) 
+int main(int argc, char* argv[]) 
 {   
     
     Vector_T<dni> keys_(10, 1);
     
 
-    srand(time(NULL));
-    
+    srand(time(NULL));    
     initialize(keys_);
 
-    std::cout << keys_ << std::endl;
-    shell_sort(keys_, keys_.size());
-    std::cout << keys_ << std::endl;
+    simulate(1, keys_);
+
+
     return 0;
 }
 
 
-void simulate(int method, Vector_T<dni> keys)
+void simulate(int method, Vector_T<dni>& keys)
 {
 
+        switch (method)
+        {
+        case 1:
+            bubble_sort(keys, keys.start(), true);
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        
+        default:
+            break;
+        }
+    
 }
 
 void stats(Vector_T<dni> keys)
