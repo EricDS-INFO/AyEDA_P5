@@ -14,15 +14,27 @@ void initialize(Vector_T<dni>& keys);
 
 int main(int argc, char* argv[]) 
 {   
-    
-    Vector_T<dni> keys_(10, 1);
-    
 
+    int sz_ = 0, init = 0, method = 0;
+    std::cout << "Indique un tamaño para el vector: ";
+    std::cin >> sz_; 
+
+    std::cout << "y el índice inicial del vector: ";
+    std::cin >> init; 
+    Vector_T<dni> keys_(sz_, init);
+    
     srand(time(NULL));    
     initialize(keys_);
 
+    std::cout << "\tElija un método para simular: \n";
+    std::cout << "\t1 -> Ordenación por inserción\n";
+    std::cout << "\t2 -> Ordenación burbuja\n";
+    std::cout << "\t3 -> Ordenación Quick\n";
+    std::cout << "\t4 -> Ordenación Heap\n";
+    std::cout << "\t5 -> Ordenación Shell\n";
+    std::cin >> method;
 
-    simulate(4, keys_);
+    simulate(method, keys_);
 
     return 0;
 }
@@ -34,24 +46,28 @@ void simulate(int method, Vector_T<dni>& keys)
         switch (method)
         {
         case 1:
+            std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN POR INSERCIÓN\n";
             insertion_sort<dni>(keys, keys.size(), true);
             break;
         case 2:
+            std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN BURBUJA\n";
             bubble_sort<dni>(keys, keys.size(), true);
             break;
         case 3:
+            std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN QUICK\n";
             quick_sort<dni>(keys, keys.start(),keys.end(), true);
             break;
         case 4:
+            std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN HEAP\n";
             heap_sort<dni>(keys, keys.size(), true);
-            
             break;
         case 5:
-            shell_sort<dni>(keys, keys.size(), true);
-            
+
+            std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN SHELL\n";
+            shell_sort<dni>(keys, keys.size(), true);    
             break;
-        
         default:
+            std::cout << "\t\t\t\t\tERROR: no existe el método indicado\n";
             break;
         }
     
