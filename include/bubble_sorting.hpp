@@ -53,7 +53,7 @@ void bubble_sort(Vector_T<KEY>& keys, int size, bool trace = false)
         }
         if (trace)
         {
-            std::cout << "\nSiguiente vuelta\n";
+            std::cout << "\n----------------Siguiente vuelta----------------\n";
         }        
     }while (modified);
     
