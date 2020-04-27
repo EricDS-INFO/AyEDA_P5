@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     initialize(keys_);
 
 
-    simulate(3, keys_);
+    simulate(5, keys_);
 
     return 0;
 }
@@ -43,11 +43,11 @@ void simulate(int method, Vector_T<dni>& keys)
             quick_sort<dni>(keys, keys.start(),keys.end(), true);
             break;
         case 4:
-            heap_sort<dni>(keys, keys.size());
+            heap_sort<dni>(keys, keys.size(), true);
             
             break;
         case 5:
-            shell_sort<dni>(keys, keys.size());
+            shell_sort<dni>(keys, keys.size(), true);
             
             break;
         

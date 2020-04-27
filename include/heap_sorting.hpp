@@ -25,7 +25,7 @@ void heapify( Vector_T<KEY>& keys,  int sz, int pos ) {
 } 
 
 template <class KEY>
-void heap_sort(Vector_T<KEY>& keys, int size)
+void heap_sort(Vector_T<KEY>& keys, int size, bool simulate = false)
 {
     for(int i = size/2; i > 0; i-- )
 
