@@ -4,12 +4,8 @@
 
 template <class KEY>
 void bubble_sort(Vector_T<KEY>& keys, int size, bool trace = false)
-{   bool modified;
-    if (trace)
-    {
-        KEY comp, actual;
-    }
-
+{   
+    bool modified;
     do
     {    
         modified = false;

@@ -23,7 +23,6 @@ int main(int argc, char* argv[])
 
     simulate(1, keys_);
 
-
     return 0;
 }
 
@@ -34,9 +33,10 @@ void simulate(int method, Vector_T<dni>& keys)
         switch (method)
         {
         case 1:
-            bubble_sort(keys, keys.start(), true);
+            insertion_sort(keys, keys.size(), true);
             break;
         case 2:
+            bubble_sort(keys, keys.size(), true);
             break;
         case 3:
             break;
