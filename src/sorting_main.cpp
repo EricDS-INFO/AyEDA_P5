@@ -21,7 +21,8 @@ int main(int argc, char* argv[])
     srand(time(NULL));    
     initialize(keys_);
 
-    simulate(1, keys_);
+
+    simulate(3, keys_);
 
     return 0;
 }
@@ -33,16 +34,21 @@ void simulate(int method, Vector_T<dni>& keys)
         switch (method)
         {
         case 1:
-            insertion_sort(keys, keys.size(), true);
+            insertion_sort<dni>(keys, keys.size(), true);
             break;
         case 2:
-            bubble_sort(keys, keys.size(), true);
+            bubble_sort<dni>(keys, keys.size(), true);
             break;
         case 3:
+            quick_sort<dni>(keys, keys.start(),keys.end(), true);
             break;
         case 4:
+            heap_sort<dni>(keys, keys.size());
+            
             break;
         case 5:
+            shell_sort<dni>(keys, keys.size());
+            
             break;
         
         default:
