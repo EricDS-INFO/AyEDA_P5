@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     initialize(keys_);
 
 
-    simulate(5, keys_);
+    simulate(4, keys_);
 
     return 0;
 }
