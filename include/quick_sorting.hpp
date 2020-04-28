@@ -32,6 +32,7 @@ void quick_sort(Vector_T<KEY>& keys, int start, int end, bool simulate = false)
         while (keys[e] > pivot) e--;
         if (s <= e) 
         {
+            
             std::swap(keys[s], keys[e]);
             s++;
             e--;

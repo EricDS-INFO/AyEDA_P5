@@ -10,12 +10,12 @@
 
 
 void simulate(int method, Vector_T<dni>& keys);
-void stats(Vector_T<dni>& keys);
-void initialize(Vector_T<dni>& keys);
+void stats(void);
+void initialize(Vector_T<dni>& keys, bool preseed = false);
 
 int helpmsg(void);
 int handleSimulation(std::vector<std::string>& all_args, int argc);
-
+int handleStatistics(std::vector<std::string>& all_args, int argc);
 
 int main(int argc, char* argv[]) 
 {   
@@ -41,6 +41,9 @@ int main(int argc, char* argv[])
             }
             if (all_args[i] == "-d" || all_args[i] == "--demo")
                 return handleSimulation(all_args, argc);
+
+            if (all_args[i] == "-s" || all_args[i] == "--stat")
+                stats();
         }
     }
     
@@ -82,16 +85,127 @@ void simulate(int method, Vector_T<dni>& keys)
     getchar();
 }
 
-void stats(Vector_T<dni> keys)
+void stats(void)
 {
+    int min = 100000000;
+    int max = 0;
+    int accum = 0;
+    int tests = 5;
+    int vsz = 0;
+    std::cout << "Introduzca el tamaño de la secuencia a ordenar: ";
+    std::cin >> vsz;
+    std::cout << "Introduzca el número de veces que se ejecuta cada método: "; 
+    std::cin >> tests;
+
+
+    Vector_T<dni> aux(vsz, 1);
+    initialize(aux, true);
+
+    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE ORDENACIÓN POR INSERCIÓN---\n\n";   
+    for (int i = 0;  i < tests; i++)
+    {
+        dni::reset_c();   
+        insertion_sort(aux, aux.size());
+        accum += dni::nth_compare();
+        
+        if (dni::nth_compare() < min)
+           min = dni::nth_compare();
+
+        if (max < dni::nth_compare())
+            max = dni::nth_compare();
+    }
+    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
+    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
+    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    accum = 0;
+    min = 100000000;
+    max = 0;
+    initialize(aux, true);
+    
+    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE ORDENACIÓN BURBUJA---\n\n";   
+    for (int i = 0;  i < tests; i++)
+    {
+        dni::reset_c();   
+        bubble_sort(aux, aux.size());
+        accum += dni::nth_compare();
+        
+        if (dni::nth_compare() < min)
+           min = dni::nth_compare();
+
+        if (max < dni::nth_compare())
+            max = dni::nth_compare();
+    }
+    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
+    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
+    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    accum = 0;
+    min = 100000000;
+    max = 0;
+    initialize(aux, true);
+    
+    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE QUICK SORT---\n\n";   
+    for (int i = 0;  i < tests; i++)
+    {
+        dni::reset_c();   
+        quick_sort(aux, aux.start(), aux.end());
+        accum += dni::nth_compare();
+        if (dni::nth_compare() < min)
+            min = dni::nth_compare();
+
+        if (max < dni::nth_compare())
+            max = dni::nth_compare();
+    }
+    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
+    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
+    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    accum = 0;
+    initialize(aux, true);
+
+    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE HEAP SORT---\n\n";   
+    for (int i = 0;  i < tests; i++)
+    {
+        dni::reset_c();   
+        heap_sort(aux, aux.size());
+        accum += dni::nth_compare();
+        if (dni::nth_compare() < min)
+            min = dni::nth_compare();
+
+        if (max < dni::nth_compare())
+            max = dni::nth_compare();
+    }
+    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
+    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
+    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    accum = 0;
+    initialize(aux, true);
+
+    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE SHELL SORT---\n\n";   
+    for (int i = 0;  i < tests; i++)
+    {
+        dni::reset_c();   
+        shell_sort(aux, aux.size());
+        accum += dni::nth_compare();
+        if (dni::nth_compare() < min)
+            min = dni::nth_compare();
+
+        if (max < dni::nth_compare())
+            max = dni::nth_compare();
+    }
+    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
+    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
+    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    accum = 0;
+    initialize(aux, true);
 
 }
 
-void initialize(Vector_T<dni>& keys)
+void initialize(Vector_T<dni>& keys, bool preseed )
 {
     
     for(int i = keys.start(); i <= keys.end(); i++)
     {
+        if (preseed)
+            srand(i);   
         dni aux;
         keys[i] = aux; 
     }

@@ -3,7 +3,7 @@
 
 
 template <class KEY>
-void shell_sort(Vector_T<KEY>& keys, int size , bool simulate = true)
+void shell_sort(Vector_T<KEY>& keys, int size , bool simulate = false)
 {
     int pos, delta;
     bool flag;
