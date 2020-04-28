@@ -10,7 +10,7 @@
 
 
 void simulate(int method, Vector_T<dni>& keys);
-void stats(void);
+void stats(int size, int times);
 void initialize(Vector_T<dni>& keys, bool preseed = false);
 
 int helpmsg(void);
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
                 return handleSimulation(all_args, argc);
 
             if (all_args[i] == "-s" || all_args[i] == "--stat")
-                stats();
+                return handleStatistics(all_args, argc);
         }
     }
     
@@ -85,23 +85,18 @@ void simulate(int method, Vector_T<dni>& keys)
     getchar();
 }
 
-void stats(void)
+void stats(int size, int tests)
 {
     int min = 100000000;
     int max = 0;
     int accum = 0;
-    int tests = 5;
-    int vsz = 0;
-    std::cout << "Introduzca el tamaño de la secuencia a ordenar: ";
-    std::cin >> vsz;
-    std::cout << "Introduzca el número de veces que se ejecuta cada método: "; 
-    std::cin >> tests;
 
 
-    Vector_T<dni> aux(vsz, 1);
+    Vector_T<dni> aux(size, 1);
     initialize(aux, true);
 
-    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE ORDENACIÓN POR INSERCIÓN---\n\n";   
+    std::cout << "\n\n\n\t\t ---NUMERO DE COMPARACIONES---\n\n";   
+    std::cout << "\t         \tMínimo\tMedio\tMáximo\n\n";
     for (int i = 0;  i < tests; i++)
     {
         dni::reset_c();   
@@ -114,15 +109,17 @@ void stats(void)
         if (max < dni::nth_compare())
             max = dni::nth_compare();
     }
-    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
-    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
-    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    std::cout << "\tInserción";
+    std::cout << "\t" << min;
+    std::cout << "\t" << accum / tests;
+    std::cout << "\t" << max;
+    std::cout << "\n\n";
+   
     accum = 0;
     min = 100000000;
     max = 0;
     initialize(aux, true);
     
-    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE ORDENACIÓN BURBUJA---\n\n";   
     for (int i = 0;  i < tests; i++)
     {
         dni::reset_c();   
@@ -135,15 +132,17 @@ void stats(void)
         if (max < dni::nth_compare())
             max = dni::nth_compare();
     }
-    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
-    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
-    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    
+    std::cout << "\tBurbuja  ";
+    std::cout << "\t" << min;
+    std::cout << "\t" << accum / tests;
+    std::cout << "\t" << max;
+    std::cout << "\n\n";
     accum = 0;
     min = 100000000;
     max = 0;
     initialize(aux, true);
-    
-    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE QUICK SORT---\n\n";   
+     
     for (int i = 0;  i < tests; i++)
     {
         dni::reset_c();   
@@ -155,13 +154,17 @@ void stats(void)
         if (max < dni::nth_compare())
             max = dni::nth_compare();
     }
-    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
-    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
-    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    
+    std::cout << "\tQuick     ";
+    std::cout << "\t" << min;
+    std::cout << "\t" << accum / tests;
+    std::cout << "\t" << max;
+    std::cout << "\n\n";
     accum = 0;
+    min = 100000000;
+    max = 0;
     initialize(aux, true);
 
-    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE HEAP SORT---\n\n";   
     for (int i = 0;  i < tests; i++)
     {
         dni::reset_c();   
@@ -173,13 +176,15 @@ void stats(void)
         if (max < dni::nth_compare())
             max = dni::nth_compare();
     }
-    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
-    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
-    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
+    std::cout << "\tHeap      ";
+    std::cout << "\t" << min;
+    std::cout << "\t" << accum / tests;
+    std::cout << "\t" << max;
+    std::cout << "\n\n";
     accum = 0;
+    min = 100000000;
+    max = 0;
     initialize(aux, true);
-
-    std::cout << "\n\n \t\t\t ---ESTADÍSTICAS DE SHELL SORT---\n\n";   
     for (int i = 0;  i < tests; i++)
     {
         dni::reset_c();   
@@ -191,12 +196,13 @@ void stats(void)
         if (max < dni::nth_compare())
             max = dni::nth_compare();
     }
-    std::cout << "Número de comparaciones acumulado: " << accum << "\n\n\n";
-    std::cout << "Número de comparaciones mínimo: " << min << "\n\n\n";
-    std::cout << "Número de comparaciones max: " << max << "\n\n\n";
-    accum = 0;
-    initialize(aux, true);
-
+    std::cout << "\tShell     ";
+    std::cout << "\t" << min;
+    std::cout << "\t" << accum / tests;
+    std::cout << "\t" << max;
+    std::cout << "\n\n";
+   
+    
 }
 
 void initialize(Vector_T<dni>& keys, bool preseed )
@@ -226,6 +232,11 @@ int helpmsg(void)
     std::cout << "\t--quick \t\t-> usar algoritmo quick sort\n";
     std::cout << "\t--heap \t\t-> usar algoritmo heap sort\n";
     std::cout << "\t--shell \t\t-> usar algoritmo shell sort\n\n";
+
+    std::cout << "\tPARA LAS ESTADÍSTICAS\n\n";
+    std::cout << "\t-n [value] | --size [value] \t\t-> indicar tamaño del vector\n";
+    std::cout << "\t-t [value] | --times [value] \t\t-> el número de repeticiones\n";
+
     std::cout << "\t\t-----------------------\n\n";
     std::cout << "\t\tpulse 'enter' para salir\n\n";
     
@@ -327,4 +338,57 @@ int handleSimulation(std::vector<std::string>& all_args, int argc)
     initialize(testbench);
     simulate(amtd, testbench);
     return 0;
+}
+
+int handleStatistics(std::vector<std::string>& all_args, int argc)
+{
+    int avs = 0;
+    bool sizeflag = false;
+    int avt = 0;
+    bool timesflag = false;
+ 
+    std::cout << "\n\n\n\t\t\t---MODO ESTADÍSTICA---\n\n";
+    if (argc > 2)
+    {
+        for (int i = 0; i < all_args.size();  i++)
+        {
+            if((all_args[i] == "-n" || all_args[i] == "--size") && argc > 3)
+            {
+                avs = atoi(all_args[i+1].c_str());
+                sizeflag = true;
+            }
+            else if((all_args[i] == "-n" || all_args[i] == "--size") && argc < 3)
+            {
+                std::cout << "\n\nERROR: no ha proporcionado un tamaño\n";
+                return 1;
+            }
+
+
+            if((all_args[i] == "-t" || all_args[i] == "--times") && argc > 3)
+            {
+                avt = atoi(all_args[i+1].c_str());
+                timesflag = true;
+            }
+            else if((all_args[i] == "-i" || all_args[i] == "--init") && argc < 3)
+            {
+                std::cout << "\n\nERROR: no ha proporcionado un índice\n";
+                return 1;
+            }
+            
+        }
+    }
+
+    if (!sizeflag)
+    {
+        std::cout << "Introduzca el tamaño del vector: ";
+        std::cin >> avs;
+    }
+    if (!timesflag)
+    {      
+        std::cout << "Introduzca el número de veces que se ejecuta cada método: ";
+        std::cin >> avt;
+    }
+    stats(avs, avt);
+    return 0;
+
 }
