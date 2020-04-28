@@ -204,11 +204,13 @@ int handleSimulation(std::vector<std::string>& all_args, int argc)
         std::cout << "\t3: \tQuick\n";
         std::cout << "\t4: \tHeap\n";
         std::cout << "\t5: \tShell\n";
-        std::cout << "\tIntroduzca el algoritmo a simular: \n\t>";
+        std::cout << "\t> ";
         std::cin >> amtd;
     }
+    getchar();
     srand(time(NULL));
     Vector_T<dni> testbench(avsz, avin);
+    initialize(testbench);
     simulate(amtd, testbench);
     return 0;
 }

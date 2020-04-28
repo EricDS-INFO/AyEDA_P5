@@ -21,7 +21,7 @@ void quick_sort(Vector_T<KEY>& keys, int start, int end, bool simulate = false)
             std::cout<<"| ["<< i <<"]"<< keys[i];
             std::cout << "\033[1;0m";
         }     
-        std::cout << " |\tPivote: " << pivot << "\n";
+        std::cout << " |\tPivote: " << pivot;
         int c;
         c=getchar();
     }
