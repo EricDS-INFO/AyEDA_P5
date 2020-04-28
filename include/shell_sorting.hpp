@@ -49,7 +49,9 @@ void delta_sort(int delta, Vector_T<KEY>& keys, int size , bool simulate = true)
                 std::cout << "| [" << k << "]" << keys[k];
                 std::cout << "\033[1;0m";
             }
-            std::cout << " |\n";
+            std::cout << " |";
+            int c;
+            getchar();
         }
     }
 }
