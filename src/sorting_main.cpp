@@ -36,16 +36,18 @@ int main(int argc, char* argv[])
         all_args.assign(argv + 1, argv + argc);
         for (int i = 0; i < all_args.size();  i++)
         {
-            if (all_args[i] == "-h" || all_args[i] == "--help")  
-            {
+            if (all_args[i] == "-h" || all_args[i] == "--help")      
                 return helpmsg();
-            }
+            
             if (all_args[i] == "-d" || all_args[i] == "--demo")
                 return handleSimulation(all_args, argc);
 
             if (all_args[i] == "-s" || all_args[i] == "--stat")
                 return handleStatistics(all_args, argc);
         }
+
+        std::cout << "\nERROR: Argumento no válido\n";
+        return 1;
     }
     
 }
