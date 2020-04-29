@@ -257,12 +257,12 @@ int helpmsg(void)
     std::cout << "\tPARA LA SIMULACIÓN\n\n";
     std::cout << "\t-n [value] | --size [value] \t\t-> indicar tamaño del vector\n";
     std::cout << "\t-i [value] | --init [value] \t\t-> indicar inicio del vector\n";
-    std::cout << "\t--insertion \t\t-> usar algoritmo por inserción\n";
-    std::cout << "\t--selection \t\t-> usar algoritmo por selección\n";
-    std::cout << "\t--bubble \t\t-> usar algoritmo de la burbuja\n";
-    std::cout << "\t--quick \t\t-> usar algoritmo quick sort\n";
-    std::cout << "\t--heap \t\t-> usar algoritmo heap sort\n";
-    std::cout << "\t--shell \t\t-> usar algoritmo shell sort\n\n";
+    std::cout << "\t--insertion \t\t\t\t-> usar algoritmo por inserción\n";
+    std::cout << "\t--selection \t\t\t\t-> usar algoritmo por selección\n";
+    std::cout << "\t--bubble \t\t\t\t-> usar algoritmo de la burbuja\n";
+    std::cout << "\t--quick \t\t\t\t-> usar algoritmo quick sort\n";
+    std::cout << "\t--heap  \t\t\t\t-> usar algoritmo heap sort\n";
+    std::cout << "\t--shell \t\t\t\t-> usar algoritmo shell sort\n\n";
 
     std::cout << "\tPARA LAS ESTADÍSTICAS\n\n";
     std::cout << "\t-n [value] | --size [value] \t\t-> indicar tamaño del vector\n";
