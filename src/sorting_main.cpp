@@ -2,9 +2,10 @@
 #include <vector>
 #include "../include/vector_t.hpp"
 #include "../include/dni.hpp"
+#include "../include/insertion_sorting.hpp"
+#include "../include/selection_sorting.hpp"
 #include "../include/bubble_sorting.hpp"
 #include "../include/heap_sorting.hpp"
-#include "../include/insertion_sorting.hpp"
 #include "../include/quick_sorting.hpp"
 #include "../include/shell_sorting.hpp"
 
@@ -52,33 +53,36 @@ int main(int argc, char* argv[])
 
 void simulate(int method, Vector_T<dni>& keys)
 {
-
-        switch (method)
-        {
+    switch (method)
+    {
         case 1:
             std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN POR INSERCIÓN\n";
             insertion_sort<dni>(keys, keys.size(), true);
             break;
         case 2:
+            std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN POR SELECCIÓN\n";
+            selection_sort<dni>(keys, keys.size(), true);
+            break;
+        case 3:
             std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN BURBUJA\n";
             bubble_sort<dni>(keys, keys.size(), true);
             break;
-        case 3:
+        case 4:
             std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN QUICK\n";
             quick_sort<dni>(keys, keys.start(),keys.end(), true);
             break;
-        case 4:
+        case 5:
             std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN HEAP\n";
             heap_sort<dni>(keys, keys.size(), true);
             break;
-        case 5:
+        case 6:
             std::cout << "\t\t\t\t\tSIMULACIÓN DE ORDENACIÓN SHELL\n";
             shell_sort<dni>(keys, keys.size(), true);    
             break;
         default:
             std::cout << "\t\t\t\t\tERROR: no existe el método indicado\n";
             break;
-        }
+    }
     
     std::cout << "\n\n\t\t\t\t\tFIN DE LA SIMULACIÓN\n";
     int c;
@@ -115,11 +119,35 @@ void stats(int size, int tests)
     std::cout << "\t" << max;
     std::cout << "\n\n";
    
+    // Reset measure values
+    accum = 0;
+    min = 100000000;
+    max = 0;
+    // Reset the key secuence in the vector (we use a default seed)
+    initialize(aux, true);
+    for (int i = 0;  i < tests; i++)
+    {
+        dni::reset_c();   
+        selection_sort(aux, aux.size());
+        accum += dni::nth_compare();
+        
+        if (dni::nth_compare() < min)
+           min = dni::nth_compare();
+
+        if (max < dni::nth_compare())
+            max = dni::nth_compare();
+    }
+    
+    std::cout << "\tSelección  ";
+    std::cout << "\t" << min;
+    std::cout << "\t" << accum / tests;
+    std::cout << "\t" << max;
+    std::cout << "\n\n";
+
     accum = 0;
     min = 100000000;
     max = 0;
     initialize(aux, true);
-    
     for (int i = 0;  i < tests; i++)
     {
         dni::reset_c();   
@@ -228,6 +256,7 @@ int helpmsg(void)
     std::cout << "\t-n [value] | --size [value] \t\t-> indicar tamaño del vector\n";
     std::cout << "\t-i [value] | --init [value] \t\t-> indicar inicio del vector\n";
     std::cout << "\t--insertion \t\t-> usar algoritmo por inserción\n";
+    std::cout << "\t--selection \t\t-> usar algoritmo por selección\n";
     std::cout << "\t--bubble \t\t-> usar algoritmo de la burbuja\n";
     std::cout << "\t--quick \t\t-> usar algoritmo quick sort\n";
     std::cout << "\t--heap \t\t-> usar algoritmo heap sort\n";
@@ -288,24 +317,29 @@ int handleSimulation(std::vector<std::string>& all_args, int argc)
                 amtd = 1;
                 mtdflag = true;
             }
-            if ((all_args[i] == "--bubble"))
+            if ((all_args[i] == "--selection"))
             {
                 amtd = 2;
                 mtdflag = true;
             }
-            if ((all_args[i] == "--quick"))
+            if ((all_args[i] == "--bubble"))
             {
                 amtd = 3;
                 mtdflag = true;
             }
-            if ((all_args[i] == "--heap"))
+            if ((all_args[i] == "--quick"))
             {
                 amtd = 4;
                 mtdflag = true;
             }
-            if ((all_args[i] == "--shell"))
+            if ((all_args[i] == "--heap"))
             {
                 amtd = 5;
+                mtdflag = true;
+            }
+            if ((all_args[i] == "--shell"))
+            {
+                amtd = 6;
                 mtdflag = true;
             }
         }
