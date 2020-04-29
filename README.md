@@ -51,7 +51,7 @@
 
 Se especifica su uso en el [archivo de configuraciones](.travis.yml)
 
-## funciones del makefile 
+## Funciones del makefile 
 
 - make       :arrow_right: compila el fichero fuente básico solicitado
 > genera el ejecutable como "runner" 
@@ -59,4 +59,3 @@ Se especifica su uso en el [archivo de configuraciones](.travis.yml)
 > genera el ejecutable como "test_runner". Si se ejecuta con "-s" se despliegan todos 
 > los test
 - make clean :arrow_right: eliminar ejecutables
-
