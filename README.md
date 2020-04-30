@@ -18,6 +18,10 @@
 
 **En el modif:**
 
+- [Definición de la  clase ISBN](./modif/ISBN.hpp)
+- [Implementación de la  clase ISBN](./modif/ISBN.cpp)
+- [Programa de la modificación](./modif/modif_main.cpp)
+
 **En el src:**
 - [Implementación de la clase de clave DNI](./src/dni.cpp)
 - [Implementación del programa principal](./src/sorting_main.cpp)
@@ -58,4 +62,7 @@ Se especifica su uso en el [archivo de configuraciones](.travis.yml)
 - make test  :arrow_right: compila los test
 > genera el ejecutable como "test_runner". Si se ejecuta con "-s" se despliegan todos 
 > los test
+
+- make mod :arrow_right: compila el programa modificado
+> genera el ejecutable como "modif_runner" 
 - make clean :arrow_right: eliminar ejecutables

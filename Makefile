@@ -51,6 +51,7 @@ clean:
 	@echo "Deleting $(BIN_NAME) and $(TEST_NAME) symlink"
 	@$(RM) $(BIN_NAME)
 	@$(RM) $(TEST_NAME)
+	@$(RM) modif_runner
 	@echo "Deleting directories"
 	@$(RM) -r $(BUILD_PATH)
 	@$(RM) -r $(BIN_PATH)
@@ -77,9 +78,8 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@echo "Compiling: $< -> $@"
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 
-
-graphic: 
-	g++ GRAPHIC/game_of_life.cpp -o runner -lglut -lGLU -lGL
+mod:
+	g++ -o modif_runner ./modif/modif_main.cpp ./modif/ISBN.cpp
 
 test:
 	@echo "Making tests: $(TEST_NAME)"
